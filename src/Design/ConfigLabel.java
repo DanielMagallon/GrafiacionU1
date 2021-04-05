@@ -33,7 +33,7 @@ public class ConfigLabel extends JLabel implements MouseListener {
         this.primaryColor = fgPrim;
         this.secondColor = fgSec;
         this.clickHandler = clickHandler;
-        setFont(new Font(Font.MONOSPACED, Font.BOLD | Font.ITALIC, 48));
+        setFont(new Font(Font.MONOSPACED, Font.BOLD | Font.ITALIC, size));
         setOpaque(false);
         setForeground(secondColor);
         setBackground(primaryColor);

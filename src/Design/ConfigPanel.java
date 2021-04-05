@@ -1,5 +1,6 @@
 package Design;
 
+import Loader.SoundLoader;
 import Perfomance.Player;
 
 import javax.swing.*;
@@ -57,13 +58,17 @@ public class ConfigPanel extends JPanel
         velPanel.add(lblTextVel);
 
         lblHelp = new ConfigLabel("Ayuda", new Color(0xEA50DA) , Color.white, ()->{
-
+            SoundLoader.theme1.stop();
+            mainWindow.helpDialog.showHelp(()-> SoundLoader.theme1.start());
         });
         lblHelp.setBounds(10,200,350,80);
 
-        lblAbout = new ConfigLabel("Acerca de", new Color(0x28AEBB) , Color.white, ()->{
-
-        });
+        lblAbout = new ConfigLabel("Acerca de", new Color(0x28AEBB) , Color.white, ()->
+                JOptionPane.showMessageDialog(mainWindow,
+                        "Programa hecho por: \nEdgar Daniel Magallon Villanueva - " +
+                                "17420571\n Efrain Tovar Meza 17420619","Creditos",
+                        JOptionPane.INFORMATION_MESSAGE)
+        );
         lblAbout.setBounds(10,300,350,80);
 
         this.add(lblReset);

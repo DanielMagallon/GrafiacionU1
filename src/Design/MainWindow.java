@@ -24,6 +24,7 @@ public class MainWindow extends JFrame
     }
 
     private GamePanel gamePanel;
+    public Help helpDialog;
     public static DadoAnimacion dadoAnimacion;
     public static ConfigPanel configPanel;
 
@@ -37,6 +38,7 @@ public class MainWindow extends JFrame
     }
 
 
+
     public static MetaPanel meta;
 
     public MainWindow()
@@ -44,6 +46,7 @@ public class MainWindow extends JFrame
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
+        helpDialog = new Help();
         meta = new MetaPanel();
 
         configPanel = new ConfigPanel(this::reset,this);

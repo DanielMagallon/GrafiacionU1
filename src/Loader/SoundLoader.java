@@ -16,6 +16,7 @@ public class SoundLoader {
     public static Clip finished = loadSound("finished.wav");
     public static Clip theme1 = loadSound("themedown_1.wav");
 //    public static Clip itsme = loadSound("itsme.wav");
+    public static Clip helpTrack = loadSound("help.wav");
     public static Clip startSoundTrack = loadSound("startsoundtrack.wav");
 
     public static Clip loadSound(String path) {

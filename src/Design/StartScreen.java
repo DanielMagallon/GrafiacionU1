@@ -35,7 +35,7 @@ public class StartScreen extends JFrame
                 lblAbout.setBounds(xMiddle-50,yStart+170,500,80);
 
                 g.drawImage(startScreen,0,0,this);
-                g.drawImage(itsmemario,xMiddle,100,this);
+                g.drawImage(itsmemario,xMiddle+50,100,this);
             }
         };
         panelScreen.setLayout(null);
@@ -50,13 +50,15 @@ public class StartScreen extends JFrame
 
         lblHelp = new ConfigLabel("Ayuda",new Color(0xFAAB09),new Color(0x07630B),
                 ()->{
-
+                    startSoundTrack.stop();
+                    mainWindow.helpDialog.showHelp(()->startSoundTrack.start());
                 },42);
 
         lblAbout = new ConfigLabel("Acerca de",new Color(0x12C1C1),new Color(0xEF9200),
-                ()->{
-
-                },42);
+                ()-> JOptionPane.showMessageDialog(StartScreen.this,
+                        "Programa hecho por: \nEdgar Daniel Magallon Villanueva - " +
+                                "17420571\n Efrain Tovar Meza 17420619","Creditos",
+                        JOptionPane.INFORMATION_MESSAGE),42);
 
         panelScreen.add(lblStartGame);
         panelScreen.add(lblHelp);
