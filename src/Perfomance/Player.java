@@ -14,15 +14,18 @@ import static Loader.SoundLoader.*;
 
 public class Player
 {
-    private ImageIcon gifLeftPlayer,giftRightPlayer;
+    final private  ImageIcon gifLeftPlayer,giftRightPlayer;
 
     public ImageIcon giftActual;
     private int rowPost,colPost;
     public String playerName;
+    private int incCol;
+
     private Timer timer;
+    public static int delay=500;
+
     private GamePanel gamePanel;
     public Clip clipWalking;
-    private int incCol;
 
     private Player rivalPlayer;
 
@@ -33,14 +36,17 @@ public class Player
         giftRightPlayer = imageRIcon;
         playerName = name;
         this.gamePanel = gamePanel;
-        timer = new Timer(500,a->{
+        timer = new Timer(delay,a->{
             if(times==0) {
                 timer.stop();
+
+
 
                 if(MainWindow.meta.isWinner()){
                     theme1.stop();
                     finished.setFramePosition(0);
                     finished.start();
+
                     return;
                 }
 
@@ -67,6 +73,7 @@ public class Player
                 }
                 isOnRival();
                 DadoAnimacion.jb.setEnabled(true);
+                MainWindow.configPanel.lblReset.setEnabled(true);
             }
             else
             {
@@ -100,6 +107,10 @@ public class Player
         });
     }
 
+    public  void updateDelay(){
+        timer.setDelay(delay);
+    }
+
     private void isOnRival(){
         if(Arrays.equals(getPosition(),rivalPlayer.getPosition()))
         {
@@ -126,13 +137,13 @@ public class Player
 
     private int times;
 
-    public Player walk(int times){
+    public void walk(int times){
 
        this.times = times;
        timer.start();
        incCol=1;
+        MainWindow.configPanel.lblReset.setEnabled(false);
         DadoAnimacion.jb.setEnabled(false);
-       return this;
     }
 
     public Player clear(){

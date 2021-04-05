@@ -5,20 +5,18 @@ import Perfomance.Get;
 import javax.swing.*;
 import java.awt.*;
 
-import static Loader.ImageLoader.ghostGIF;
-import static Loader.ImageLoader.wallpaper;
+import static Loader.ImageLoader.*;
 import static Perfomance.Obstaculos.ghostPosition;
 
 public class GamePanel extends JPanel {
 
-    private final MainWindow mainWindow;
-    public JLabel tablero[][] = new JLabel[7][7];
-    private Get get;
+    public JLabel[][] tablero = new JLabel[7][7];
 
-    public GamePanel(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
-//            setDoubleBuffered(true);
-        setPreferredSize(new Dimension(1750, 1050));
+    private ConfigLabel lblSwap;
+
+    public GamePanel() {
+        //            setDoubleBuffered(true);
+        setPreferredSize(new Dimension(1850, 1050));
         setLayout(null);
         setBorder(BorderFactory.createLineBorder(Color.black));
         setOpaque(false);
@@ -28,6 +26,7 @@ public class GamePanel extends JPanel {
 
         for (int i = 6; i >= 0; i--) {
             x = 0;
+            Get get;
             if (i % 2 != 0) {
                 j = 6;
                 get = v -> v >= 0;
@@ -51,14 +50,20 @@ public class GamePanel extends JPanel {
             y += size;
         }
 
-        mainWindow.dadoAnimacion.setBounds(840, 10, 400, 660);
-        this.add(mainWindow.dadoAnimacion);
-
         MainWindow.meta.setBounds(660, 10, 150, 137);
+
         this.add(MainWindow.meta);
 
-        mainWindow.configPanel.setBounds(1300, 10, 360, 300);
-        this.add(mainWindow.configPanel);
+        swapPanels();
+
+        this.add(MainWindow.dadoAnimacion);
+        this.add(MainWindow.configPanel);
+
+        lblSwap = new ConfigLabel(">",new Color(0x2B9AB8),Color.white,this::swapPanels);
+        lblSwap.setBounds(700,250,50,50);
+        this.add(lblSwap);
+
+        this.setBorder(BorderFactory.createLineBorder(Color.black));
 
         for (int ghostPoints[] : ghostPosition) {
             tablero[ghostPoints[0]][ghostPoints[1]].setIcon(ghostGIF);
@@ -66,12 +71,26 @@ public class GamePanel extends JPanel {
 
     }
 
+    public boolean swaped;
+
+    public void swapPanels(){
+
+        if(swaped){
+            MainWindow.configPanel.setBounds(840, 200, 380, 400);
+            MainWindow.dadoAnimacion.setBounds(1350, 10, 400, 660);
+        }
+        else {
+            MainWindow.dadoAnimacion.setBounds(840, 10, 400, 660);
+            MainWindow.configPanel.setBounds(1350, 200, 380, 400);
+        }
+
+        swaped=!swaped;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-//        Graphics2D g2 = (Graphics2D) g;
-
-//            g2.drawImage(getNextGhostWalking(),x,200,this);
+        g.drawImage(bigWallpapaer,0,0,this);
         g.drawImage(wallpaper, 0, 0, 650, 650, this);
 
     }

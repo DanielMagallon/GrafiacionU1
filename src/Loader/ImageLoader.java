@@ -10,6 +10,9 @@ public class ImageLoader
 {
 
     public static Image wallpaper = getSprite("tablerocuadros7x7.jpg");
+    public static Image bigWallpapaer = getSprite("wallpaper.jpg");
+    public static Image startScreen = getSprite("startscreen.jpg");
+
 
     public static Image cursorMario = getSprite("cursorMario.png");
 
@@ -28,18 +31,21 @@ public class ImageLoader
     public static ImageIcon startGIF = getImageIcon("estrella300px.gif");
     public static ImageIcon marioBrowser = getImageIcon("mariobrowser.gif");
 
+    public static Image itsmemario = getImageIcon("marioitsme.gif").getImage();
+
+
     public static Image dado = getImageIcon("ldado.gif").getImage();
     public static Image marioDado = getImageIcon("mariodado200px.gif").getImage();
 
     public static ImageIcon getImageIcon(String path)
     {
-        return new ImageIcon(ImageLoader.class.getResource("/rsc/").getPath()+ path);
+        return new ImageIcon(ImageLoader.class.getResource("/rsc/"+path));
     }
     public static Image getSprite(String path)
     {
         try {
-            File file = new File(ImageLoader.class.getResource("/rsc/").getPath()+path);
-            return ImageIO.read(file);
+
+            return ImageIO.read(ImageLoader.class.getResource("/rsc/"+path));
         } catch (IOException e) {
             e.printStackTrace();
         }

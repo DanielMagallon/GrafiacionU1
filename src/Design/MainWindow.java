@@ -5,6 +5,7 @@ import Perfomance.Obstaculos;
 import Perfomance.Player;
 
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -17,12 +18,14 @@ public class MainWindow extends JFrame
 {
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(()->new MainWindow().setVisible(true));
+        SwingUtilities.invokeLater(()->{
+            new StartScreen(new MainWindow());
+        });
     }
 
     private GamePanel gamePanel;
-    public DadoAnimacion dadoAnimacion;
-    public ConfigPanel configPanel;
+    public static DadoAnimacion dadoAnimacion;
+    public static ConfigPanel configPanel;
 
     private Player marioPlayer,browserPlayer;
     private boolean marioTurn=true;
@@ -43,14 +46,14 @@ public class MainWindow extends JFrame
 
         meta = new MetaPanel();
 
-        configPanel = new ConfigPanel(this::reset);
+        configPanel = new ConfigPanel(this::reset,this);
         dadoAnimacion = new DadoAnimacion( number ->{
             updatePlayer(marioTurn ? marioPlayer : browserPlayer,number);
             marioTurn = !marioTurn;
             return true;
         } );
 
-        gamePanel = new GamePanel(this);
+        gamePanel = new GamePanel();
 
         marioPlayer = new Player(getImageIcon("marioplayer.gif"),
                 getImageIcon("rmarioplayer.gif"),"Mario",gamePanel,loadSound("marioWalk.wav")).reset();
@@ -72,13 +75,31 @@ public class MainWindow extends JFrame
                 theme1.setFramePosition(0);
                 theme1.loop(Clip.LOOP_CONTINUOUSLY);
                 theme1.start();
-                ghostSound.start();
-                coinSound.start();
-                pipeIn.start();
+            }
+        });
+
+
+        finished.addLineListener(e -> {
+            if (e.getType() == LineEvent.Type.STOP) {
+                configPanel.lblReset.setEnabled(true);
+            }else if(e.getType() == LineEvent.Type.START){
+                configPanel.lblReset.setEnabled(false);
             }
         });
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public void loadResources(){
+
+        ghostSound.start();
+        coinSound.start();
+        pipeIn.start();
+    }
+
+    public void updateDelay(){
+        marioPlayer.updateDelay();
+        browserPlayer.updateDelay();
     }
 
     public void updatePlayer(Player player,int number)

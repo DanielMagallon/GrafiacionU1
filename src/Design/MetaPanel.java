@@ -12,6 +12,7 @@ public class MetaPanel extends JPanel
 
     public MetaPanel() {
         setDoubleBuffered(true);
+        setOpaque(false);
         lblPlayer = new JLabel();
         lblPlayer.setBounds(20,150,100,100);
         add(lblPlayer);

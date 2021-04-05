@@ -28,6 +28,7 @@ public class DadoAnimacion extends JPanel
     public DadoAnimacion(Get clickHandler)
     {
         setLayout(null);
+        setOpaque(false);
         timer = new Timer(50,a->{
 
             times--;
