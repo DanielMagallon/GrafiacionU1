@@ -34,25 +34,16 @@ public class MainWindow extends JFrame
     }
 
 
-    public static JLabel meta = new JLabel(start);
+    public static MetaPanel meta;
 
     public MainWindow()
     {
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
-        configPanel = new ConfigPanel(
-                () ->
-                {
-                    marioPlayer.clear().reset();
-                    browserPlayer.clear().reset();
-                    marioTurn=true;
-                    theme1.stop();
-                    theme1.setFramePosition(0);
-                    theme1.loop(Clip.LOOP_CONTINUOUSLY);
-                    theme1.start();
-                }
-        );
+        meta = new MetaPanel();
+
+        configPanel = new ConfigPanel(this::reset);
         dadoAnimacion = new DadoAnimacion( number ->{
             updatePlayer(marioTurn ? marioPlayer : browserPlayer,number);
             marioTurn = !marioTurn;
@@ -96,5 +87,16 @@ public class MainWindow extends JFrame
             player.clear().walk(number);
     }
 
+    public void reset(){
+        marioPlayer.clear().reset();
+        browserPlayer.clear().reset();
+        marioTurn=true;
+        theme1.stop();
+        theme1.setFramePosition(0);
+        theme1.loop(Clip.LOOP_CONTINUOUSLY);
+        theme1.start();
+        meta.setPlayer(null);
+        DadoAnimacion.jb.setEnabled(true);
+    }
 
 }

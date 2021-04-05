@@ -23,7 +23,7 @@ public class ImageLoader
             getSprite("seis.png")
     };
 
-    public static ImageIcon start = getImageIcon("start.png");
+//    public static Image start = getSprite("start.png");
     public static ImageIcon ghostGIF = getImageIcon("lfantasma2.gif");
     public static ImageIcon startGIF = getImageIcon("estrella300px.gif");
     public static ImageIcon marioBrowser = getImageIcon("mariobrowser.gif");

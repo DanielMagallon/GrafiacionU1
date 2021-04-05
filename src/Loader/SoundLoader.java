@@ -13,7 +13,7 @@ public class SoundLoader {
     public static Clip coinSound = loadSound("coin.wav");
     public static Clip ghostSound = loadSound("ghost.wav");
     public static Clip pipeIn = loadSound("pipeIn.wav");
-
+    public static Clip finished = loadSound("finished.wav");
     public static Clip theme1 = loadSound("themedown_1.wav");
 
     public static Clip loadSound(String path) {

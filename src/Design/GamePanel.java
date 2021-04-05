@@ -40,11 +40,11 @@ public class GamePanel extends JPanel {
 
             for (; get.get(j); j += inc) {
                 tablero[i][j] = new JLabel();
-                tablero[i][j].setOpaque(false);
+//                tablero[i][j].setOpaque(false);
                 tablero[i][j].setHorizontalAlignment(SwingConstants.CENTER);
                 tablero[i][j].setVerticalAlignment(SwingConstants.CENTER);
                 tablero[i][j].setBounds(x, y, size, size);
-                tablero[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
+//                tablero[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
                 this.add(tablero[i][j]);
                 x += size;
             }
@@ -69,10 +69,10 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(this.getBackground());
-        Graphics2D g2 = (Graphics2D) g;
+//        Graphics2D g2 = (Graphics2D) g;
 
 //            g2.drawImage(getNextGhostWalking(),x,200,this);
-        g2.drawImage(wallpaper, 0, 0, 650, 650, this);
+        g.drawImage(wallpaper, 0, 0, 650, 650, this);
+
     }
 }

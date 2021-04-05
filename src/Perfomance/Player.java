@@ -10,8 +10,7 @@ import javax.swing.*;
 
 import java.util.Arrays;
 
-import static Loader.SoundLoader.ghostSound;
-import static Loader.SoundLoader.pipeIn;
+import static Loader.SoundLoader.*;
 
 public class Player
 {
@@ -23,6 +22,7 @@ public class Player
     private Timer timer;
     private GamePanel gamePanel;
     public Clip clipWalking;
+    private int incCol;
 
     private Player rivalPlayer;
 
@@ -36,6 +36,14 @@ public class Player
         timer = new Timer(500,a->{
             if(times==0) {
                 timer.stop();
+
+                if(MainWindow.meta.isWinner()){
+                    theme1.stop();
+                    finished.setFramePosition(0);
+                    finished.start();
+                    return;
+                }
+
                 int newPos[]  = Obstaculos.check(getPosition());
 
                 if(newPos!=null) {
@@ -66,12 +74,26 @@ public class Player
                     gamePanel.tablero[rowPost][colPost].setIcon(ImageLoader.ghostGIF);
 
                 else clear();
-                colPost++;
+                colPost+=incCol;
                 if(colPost>6){
-                    colPost = (colPost-7);
                     rowPost++;
+                    if(rowPost==7)
+                    {
+                        rowPost=6;
+                        incCol=-1;
+                        MainWindow.meta.setPlayer(giftActual);
+                        times--;
+                        return;
+
+                    }else{
+                        colPost = (colPost-7);
+                    }
                     giftActual =  rowPost%2==0 ? gifLeftPlayer : giftRightPlayer;
                 }
+
+                if(incCol==-1)
+                    MainWindow.meta.setPlayer(null);
+
                 gamePanel.tablero[rowPost][colPost].setIcon(giftActual);
                 times--;
             }
@@ -108,14 +130,16 @@ public class Player
 
        this.times = times;
        timer.start();
+       incCol=1;
         DadoAnimacion.jb.setEnabled(false);
        return this;
     }
 
     public Player clear(){
 
-        if(colPost!=-1)
+        if(!(colPost==-1 || colPost==7 )&& rowPost<7)
         {
+
             if(Arrays.equals(getPosition(),rivalPlayer.getPosition()))
             {
                 gamePanel.tablero[rowPost][colPost].setIcon(rivalPlayer.giftActual);
@@ -137,11 +161,4 @@ public class Player
                 '}';
     }
 
-    /*
-            1-4 1-3 1-2 1-1 1-0
-            0-0 0-1 0-2 0-3 0-4
-
-            2+5 = 7
-            7-4 = 3
-     */
 }
