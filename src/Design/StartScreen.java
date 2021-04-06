@@ -51,7 +51,10 @@ public class StartScreen extends JFrame
         lblHelp = new ConfigLabel("Ayuda",new Color(0xFAAB09),new Color(0x07630B),
                 ()->{
                     startSoundTrack.stop();
-                    mainWindow.helpDialog.showHelp(()->startSoundTrack.start());
+                    mainWindow.helpDialog.showHelp(()->{
+                        startSoundTrack.loop(Clip.LOOP_CONTINUOUSLY);
+                        startSoundTrack.start();
+                    });
                 },42);
 
         lblAbout = new ConfigLabel("Acerca de",new Color(0x12C1C1),new Color(0xEF9200),

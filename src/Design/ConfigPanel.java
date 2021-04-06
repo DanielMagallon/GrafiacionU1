@@ -3,8 +3,11 @@ package Design;
 import Loader.SoundLoader;
 import Perfomance.Player;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+
+import static Loader.SoundLoader.startSoundTrack;
 
 public class ConfigPanel extends JPanel
 {
@@ -59,7 +62,10 @@ public class ConfigPanel extends JPanel
 
         lblHelp = new ConfigLabel("Ayuda", new Color(0xEA50DA) , Color.white, ()->{
             SoundLoader.theme1.stop();
-            mainWindow.helpDialog.showHelp(()-> SoundLoader.theme1.start());
+            mainWindow.helpDialog.showHelp(()->{
+                SoundLoader.theme1.loop(Clip.LOOP_CONTINUOUSLY);
+                SoundLoader.theme1.start();
+            });
         });
         lblHelp.setBounds(10,200,350,80);
 

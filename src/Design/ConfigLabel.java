@@ -44,7 +44,7 @@ public class ConfigLabel extends JLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        if (clickHandler != null) {
+        if (this.isEnabled() && clickHandler != null) {
             clickHandler.run();
         }
     }
