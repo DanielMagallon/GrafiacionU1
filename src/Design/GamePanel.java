@@ -76,12 +76,12 @@ public class GamePanel extends JPanel {
     public void swapPanels(){
 
         if(swaped){
-            MainWindow.configPanel.setBounds(840, 200, 380, 400);
+            MainWindow.configPanel.setBounds(840, 170, 380, 490);
             MainWindow.dadoAnimacion.setBounds(1350, 10, 400, 660);
         }
         else {
             MainWindow.dadoAnimacion.setBounds(840, 10, 400, 660);
-            MainWindow.configPanel.setBounds(1350, 200, 380, 400);
+            MainWindow.configPanel.setBounds(1350, 170, 380, 490);
         }
 
         swaped=!swaped;

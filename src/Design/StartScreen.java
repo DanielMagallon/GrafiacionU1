@@ -48,7 +48,7 @@ public class StartScreen extends JFrame
                     mainWindow.setVisible(true);
                 },42);
 
-        lblHelp = new ConfigLabel("Ayuda",new Color(0xFAAB09),new Color(0x07630B),
+        lblHelp = new ConfigLabel("Ayuda",new Color(0xA6FA09),new Color(0x07630B),
                 ()->{
                     startSoundTrack.stop();
                     mainWindow.helpDialog.showHelp(()->{

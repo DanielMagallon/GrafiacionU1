@@ -12,7 +12,7 @@ import static Loader.SoundLoader.startSoundTrack;
 public class ConfigPanel extends JPanel
 {
 
-    public ConfigLabel lblReset,lblUpVelocity,lblDownVelocity,lblTextVel,lblAbout,lblHelp;
+    public ConfigLabel lblReset,lblUpVelocity,lblDownVelocity,lblTextVel,lblAbout,lblHelp,lblTwoPlayer;
 
     public ConfigPanel(Runnable reset,MainWindow mainWindow) {
         setLayout(null);
@@ -77,9 +77,27 @@ public class ConfigPanel extends JPanel
         );
         lblAbout.setBounds(10,300,350,80);
 
+        lblTwoPlayer = new ConfigLabel(getConfigPlayers(),new Color(0xFC0F0F),
+                new Color(0x00FF5F), ()->
+                        lblTwoPlayer.setText(updateConfigPlayers().getConfigPlayers())
+                );
+        lblTwoPlayer.setBounds(10,400,350,80);
+
         this.add(lblReset);
         this.add(lblHelp);
         this.add(lblAbout);
+        this.add(lblTwoPlayer);
         this.add(velPanel);
+    }
+
+    public boolean twoPlayers=true;
+
+    private ConfigPanel updateConfigPlayers(){
+        twoPlayers=!twoPlayers;
+        return this;
+    }
+
+    public String getConfigPlayers(){
+        return twoPlayers ? "2 jugadores" : "1 jugador";
     }
 }

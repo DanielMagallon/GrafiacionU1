@@ -19,14 +19,12 @@ public class DadoAnimacion extends JPanel
     private int yNum,times,rnd;
 
     private Random lb = new Random();
-
+    private Get clickHandler;
     public static JLabel jb;
-
-//    public int test[] = {5,2,5};
-//    public int index=0;
 
     public DadoAnimacion(Get clickHandler)
     {
+        this.clickHandler = clickHandler;
         setLayout(null);
         setOpaque(false);
         timer = new Timer(50,a->{
@@ -42,8 +40,8 @@ public class DadoAnimacion extends JPanel
 
         });
 
-        jb = new JLabel("Lanzar");
-        jb.setFont(new Font(Font.MONOSPACED,Font.BOLD|Font.ITALIC,48));
+        jb = new JLabel("Lanzar (Ctrl+L)");
+        jb.setFont(new Font(Font.MONOSPACED,Font.BOLD,36));
         jb.setForeground(Color.red);
         jb.setBackground(Color.white);
         jb.setHorizontalAlignment(SwingConstants.CENTER);
@@ -53,18 +51,7 @@ public class DadoAnimacion extends JPanel
         jb.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-                if(jb.isEnabled()) {
-                    lanzar = true;
-                    rnd = lb.nextInt(6);
-//                    rnd = test[index++];
-                    clickHandler.get(rnd + 1);
-                    yNum = 200;
-                    times = 20;
-                    coinSound.setFramePosition(0);
-                    coinSound.start();
-                    timer.start();
-                }
+                execute();
             }
 
             @Override
@@ -80,6 +67,20 @@ public class DadoAnimacion extends JPanel
             }
         });
         add(jb);
+    }
+
+    public void execute(){
+        if(jb.isEnabled()) {
+            lanzar = true;
+            rnd = lb.nextInt(6);
+//                    rnd = test[index++];
+            clickHandler.get(rnd + 1);
+            yNum = 200;
+            times = 20;
+            coinSound.setFramePosition(0);
+            coinSound.start();
+            timer.start();
+        }
     }
 
     @Override

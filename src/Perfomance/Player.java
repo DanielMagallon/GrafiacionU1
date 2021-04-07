@@ -25,13 +25,12 @@ public class Player
     public static int delay=500;
 
     private GamePanel gamePanel;
-    public Clip clipWalking;
 
     private Player rivalPlayer;
 
-    public Player(ImageIcon imageLIcon, ImageIcon imageRIcon, String name, GamePanel gamePanel,Clip clipWalking)
+    public Player(ImageIcon imageLIcon, ImageIcon imageRIcon, String name, GamePanel gamePanel)
     {
-        this.clipWalking=clipWalking;
+
         gifLeftPlayer = imageLIcon;
         giftRightPlayer = imageRIcon;
         playerName = name;
@@ -39,8 +38,6 @@ public class Player
         timer = new Timer(delay,a->{
             if(times==0) {
                 timer.stop();
-
-
 
                 if(MainWindow.meta.isWinner()){
                     theme1.stop();

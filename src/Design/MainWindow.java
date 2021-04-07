@@ -1,13 +1,12 @@
 package Design;
 
-import Perfomance.Get;
-import Perfomance.Obstaculos;
 import Perfomance.Player;
 
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -28,6 +27,8 @@ public class MainWindow extends JFrame
     public static DadoAnimacion dadoAnimacion;
     public static ConfigPanel configPanel;
 
+    private boolean twoPlayers;
+
     private Player marioPlayer,browserPlayer;
     private boolean marioTurn=true;
 
@@ -46,23 +47,36 @@ public class MainWindow extends JFrame
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
 
+
+
+
         helpDialog = new Help();
         meta = new MetaPanel();
 
         configPanel = new ConfigPanel(this::reset,this);
+        twoPlayers = configPanel.twoPlayers;
         dadoAnimacion = new DadoAnimacion( number ->{
-            updatePlayer(marioTurn ? marioPlayer : browserPlayer,number);
-            marioTurn = !marioTurn;
+            if(twoPlayers) {
+                updatePlayer(marioTurn ? marioPlayer : browserPlayer, number);
+                marioTurn = !marioTurn;
+            }else updatePlayer(marioPlayer, number);
             return true;
         } );
 
+        this.getRootPane().registerKeyboardAction(a->dadoAnimacion.execute(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_MASK), JComponent.WHEN_IN_FOCUSED_WINDOW);
+
         gamePanel = new GamePanel();
 
+        this.getRootPane().registerKeyboardAction(a->gamePanel.swapPanels(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, KeyEvent.CTRL_MASK), JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+
         marioPlayer = new Player(getImageIcon("marioplayer.gif"),
-                getImageIcon("rmarioplayer.gif"),"Mario",gamePanel,loadSound("marioWalk.wav")).reset();
+                getImageIcon("rmarioplayer.gif"),"Mario",gamePanel).reset();
 
         browserPlayer = new Player(getImageIcon("browser2.gif"),
-                getImageIcon("rbrowser2.gif"),"Browser",gamePanel,loadSound("browserWalk.wav")).reset();
+                getImageIcon("rbrowser2.gif"),"Browser",gamePanel).reset();
 
 
         marioPlayer.setRivalPlayer(browserPlayer);
@@ -93,6 +107,8 @@ public class MainWindow extends JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+
+
     public void loadResources(){
 
         ghostSound.start();
@@ -115,6 +131,7 @@ public class MainWindow extends JFrame
         marioPlayer.clear().reset();
         browserPlayer.clear().reset();
         marioTurn=true;
+        twoPlayers=configPanel.twoPlayers;
         theme1.stop();
         theme1.setFramePosition(0);
         theme1.loop(Clip.LOOP_CONTINUOUSLY);
