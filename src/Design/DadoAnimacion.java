@@ -21,7 +21,8 @@ public class DadoAnimacion extends JPanel
     private Random lb = new Random();
     private Get clickHandler;
     public static JLabel jb;
-
+    public static Image imagenactual;
+    
     public DadoAnimacion(Get clickHandler)
     {
         this.clickHandler = clickHandler;
@@ -92,6 +93,6 @@ public class DadoAnimacion extends JPanel
         {
             g.drawImage(numbers[rnd],120,yNum,this);
         }
-        g.drawImage(marioDado,80,340,this);
+        g.drawImage(imagenactual,80,340,this);
     }
 }

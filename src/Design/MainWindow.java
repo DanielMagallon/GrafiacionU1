@@ -5,6 +5,9 @@ import Perfomance.Player;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
 import javax.swing.*;
+
+import Loader.ImageLoader;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -57,12 +60,16 @@ public class MainWindow extends JFrame
         twoPlayers = configPanel.twoPlayers;
         dadoAnimacion = new DadoAnimacion( number ->{
             if(twoPlayers) {
+            	DadoAnimacion.imagenactual=marioTurn ?  ImageLoader.browserDado : ImageLoader.marioDado; 
+            	this.repaint();
                 updatePlayer(marioTurn ? marioPlayer : browserPlayer, number);
                 marioTurn = !marioTurn;
+                
             }else updatePlayer(marioPlayer, number);
             return true;
         } );
-
+        	
+        	DadoAnimacion.imagenactual=ImageLoader.marioDado;
         this.getRootPane().registerKeyboardAction(a->dadoAnimacion.execute(),
                 KeyStroke.getKeyStroke(KeyEvent.VK_L, KeyEvent.CTRL_MASK), JComponent.WHEN_IN_FOCUSED_WINDOW);
 
@@ -138,6 +145,8 @@ public class MainWindow extends JFrame
         theme1.start();
         meta.setPlayer(null);
         DadoAnimacion.jb.setEnabled(true);
+        DadoAnimacion.imagenactual=ImageLoader.marioDado;
+        dadoAnimacion.repaint();
     }
 
 }

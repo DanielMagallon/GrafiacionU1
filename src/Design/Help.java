@@ -23,8 +23,8 @@ public class Help extends JDialog
                     " El jugador que llegue a la estrella (giratoria) gana. En caso de salir" +
                     " un numero que se pase de la posicion estrella el jugador se le retornara a" +
                     " las posiciones anteriores \n Sobre las animaciones de avanzar, se puede" +
-                    " disminuir o aumentar la velocidad de estas en el panel de configuraciones, pare" +
-                    " ello se debe de hacer click sobre el boton '>'.",
+                    " disminuir o aumentar la velocidad de estas en el panel de configuraciones, para" +
+                    " ello se debe de hacer click sobre el boton '>' para que se vea el menu.",
 
                     "Para cambiar la jugabilidad a 1 o 2 jugadores, basta con que de igual manera" +
                             " sea presiondo el boton '>' y en la ultima opcion aparecera una opcion que dice" +
@@ -34,7 +34,9 @@ public class Help extends JDialog
                     "Para hacer un lanzamiento de dado, se puede usar el atajo de teclado Ctrl+L, de manera" +
                             " se evita tener que presionar sobre el boton lanzar. \n " +
                             "Para acceder a las configuraciones del boton '>' se puede usar el atajo de " +
-                            "teclado Ctrl + flecha_derecha"
+                            "teclado Ctrl + flecha_derecha",
+                            "A continuacion se deja un link de video tutorial: https://youtu.be/MuaaTfnxT4o \n " +
+                                    "Tambien se anexa el link del repositorio donde se encuentra alojado el codigo: https://github.com/DanielMagallon/GrafiacionU1/tree/master"
             };
 
     private int currentRow, currentIndex=0;

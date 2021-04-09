@@ -37,6 +37,7 @@ public class ImageLoader
     public static Image dado = getImageIcon("ldado.gif").getImage();
     public static Image toadHelp = getImageIcon("toadhelp.png").getImage();
     public static Image marioDado = getImageIcon("mariodado200px.gif").getImage();
+    public static Image browserDado = getImageIcon("browser200.gif").getImage();
 
     public static ImageIcon getImageIcon(String path)
     {
